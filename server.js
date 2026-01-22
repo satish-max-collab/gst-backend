@@ -50,8 +50,8 @@ app.post("/submit-gst", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "yourmail@gmail.com",
-        pass: "your-app-password"
+        user: "satish090490@kashiit.ac.in",
+        pass: "skv009kit"
       }
     });
 
