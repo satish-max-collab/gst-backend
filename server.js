@@ -56,8 +56,8 @@ app.post("/submit-gst", async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: "yourmail@gmail.com",
-      to: "receiver@gmail.com",
+      from: "satish090490@kashiit.ac.in",
+      to: "satish090490@kashiit.ac.in",
       subject: "New GST Form Submission",
       text: "GST form submitted. Excel attached.",
       attachments: [
