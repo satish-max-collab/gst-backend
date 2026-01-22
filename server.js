@@ -10,7 +10,6 @@ app.use(express.json());
 
 const EXCEL_FILE = "gst_submissions.xlsx";
 
-/* Create Excel if not exists */
 async function ensureExcel() {
   if (!fs.existsSync(EXCEL_FILE)) {
     const workbook = new ExcelJS.Workbook();
@@ -46,18 +45,17 @@ app.post("/submit-gst", async (req, res) => {
 
     await workbook.xlsx.writeFile(EXCEL_FILE);
 
-    /* Send Email */
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "satish090490@kashiit.ac.in",
-        pass: "skv009kit"
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
       }
     });
 
     await transporter.sendMail({
-      from: "satish090490@kashiit.ac.in",
-      to: "satish090490@kashiit.ac.in",
+      from: process.env.GMAIL_USER,
+      to: process.env.RECEIVER_EMAIL,
       subject: "New GST Form Submission",
       text: "GST form submitted. Excel attached.",
       attachments: [
@@ -76,6 +74,7 @@ app.post("/submit-gst", async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
